@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>蟲蟲懸賞單｜答案檢查器</title>
+<style>
+:root{font-family:system-ui,-apple-system,"Noto Sans TC","Microsoft JhengHei",sans-serif;color:#17312c;background:#f6f8f2}*{box-sizing:border-box}body{margin:0;padding:24px 14px}main{max-width:700px;margin:0 auto}h1{font-size:clamp(25px,5vw,35px);margin:4px 0 8px}p{line-height:1.65}.intro{color:#56665d;margin:0 0 20px}.panel{background:white;border:1px solid #dfe8df;border-radius:18px;padding:22px;box-shadow:0 8px 24px #193b2710;margin-bottom:16px}.eyebrow{font-size:12px;font-weight:800;letter-spacing:.08em;color:#577869}label{font-weight:750;display:block;margin:0 0 9px}select,input{font:inherit;border:2px solid #c7d7ca;background:white;color:#18372c;border-radius:10px;padding:13px;width:100%;outline-offset:2px}select:focus,input:focus{border-color:#2c8461}.digits{display:flex;flex-wrap:wrap;gap:7px;margin:12px 0 4px}.digit{font-size:19px;font-weight:750;background:#eff5e9;border:1px solid #d4e3d0;border-radius:8px;min-width:36px;text-align:center;padding:7px}.formula{display:grid;grid-template-columns:1fr auto 1fr auto;gap:9px;align-items:end}.op{font-size:27px;padding-bottom:10px;color:#42715c}.prompt{display:flex;justify-content:space-between;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:10px}.small{font-size:13px;color:#65766c}.actions{display:flex;gap:9px;margin-top:19px}button{font:inherit;cursor:pointer;border-radius:10px;padding:12px 18px;font-weight:750;border:1px solid #b4c9ba}button.primary{background:#19764c;color:white;border-color:#19764c;flex:1}button.secondary{background:#fff;color:#235f46}.status{border-left:5px solid #647f70;background:#f4f8f5;border-radius:10px;padding:14px 16px;margin-top:17px}.status.good{background:#e9f7ee;border-color:#218052}.status.bad{background:#fff3ee;border-color:#cb6847}.status h2{margin:0 0 8px;font-size:20px}.checks{display:grid;gap:8px;margin-top:10px}.check{display:flex;align-items:start;gap:9px;padding:9px 11px;border-radius:8px;background:#ffffffaa}.check .symbol{font-weight:900;width:18px;flex:none}.pass .symbol{color:#148455}.fail .symbol{color:#ba5739}.tip{color:#4f6459;font-size:14px;margin-top:14px}.footer{color:#52765d;font-size:17px;font-weight:800;text-align:center;padding:8px 10px;display:flex;justify-content:center;align-items:center;gap:11px}.footer svg{width:54px;height:54px;flex:none}@media(max-width:450px){.panel{padding:16px}.formula{gap:5px}.formula input{padding:11px 7px;font-size:17px}.op{font-size:22px}.digit{min-width:32px}}
+</style>
+</head>
+<body><main>
+<div class="eyebrow">六年級數學・小數除以小數</div>
+<h1>🐛 蟲蟲懸賞單｜答案檢查器</h1>
+<p class="intro">選擇題目，並輸入的「被除數」及「除數」，即可檢查算式是否符合全部條件。</p>
+<section class="panel">
+<div class="eyebrow">可以使用的數字</div>
+<div class="digits" aria-label="可用數字0 0 1 2 3 4 5 6 8 9"><span class="digit">0</span><span class="digit">0</span><span class="digit">1</span><span class="digit">2</span><span class="digit">3</span><span class="digit">4</span><span class="digit">5</span><span class="digit">6</span><span class="digit">8</span><span class="digit">9</span></div>
+<p class="small">提醒：0 最多用兩次，其他數字最多一次；沒有 7。小數點不算數字。</p>
+</section>
+<section class="panel">
+<label for="challenge">第幾題？</label>
+<select id="challenge"></select>
+<div class="prompt"><strong id="rule"></strong><span class="small" id="target"></span></div>
+<div class="formula">
+<div><label for="dividend">被除數</label><input id="dividend" type="text" inputmode="decimal" placeholder="例如 4.8" autocomplete="off"></div>
+<span class="op">÷</span>
+<div><label for="divisor">除數</label><input id="divisor" type="text" inputmode="decimal" placeholder="例如 1.2" autocomplete="off"></div>
+<span class="op">＝ <b id="goal"></b></span>
+</div>
+<div class="actions"><button class="primary" id="check">檢查答案</button><button class="secondary" id="clear">清除</button></div>
+<div id="result" role="status" aria-live="polite" hidden></div>
+</section>
+<div class="footer"><span>大安國小601</span><svg viewBox="0 0 100 100" role="img" aria-label="可愛的小蜜蜂插圖" xmlns="http://www.w3.org/2000/svg"><ellipse cx="35" cy="30" rx="21" ry="15" transform="rotate(-30 35 30)" fill="#d9eefd" stroke="#6f9bb3" stroke-width="3"/><ellipse cx="66" cy="30" rx="21" ry="15" transform="rotate(30 66 30)" fill="#d9eefd" stroke="#6f9bb3" stroke-width="3"/><path d="M41 19Q35 5 26 13M58 19Q65 5 74 13" fill="none" stroke="#35423b" stroke-width="3" stroke-linecap="round"/><ellipse cx="50" cy="57" rx="30" ry="32" fill="#f7c94e" stroke="#514b31" stroke-width="3"/><path d="M28 44Q50 51 72 44M22 60Q50 68 78 60" fill="none" stroke="#514b31" stroke-width="9"/><circle cx="40" cy="39" r="3" fill="#31352f"/><circle cx="60" cy="39" r="3" fill="#31352f"/><path d="M44 46Q50 52 56 46" fill="none" stroke="#31352f" stroke-width="2.5" stroke-linecap="round"/><path d="M23 72L14 80M77 72L86 80" stroke="#514b31" stroke-width="3" stroke-linecap="round"/></svg></div>
+</main>
+<script>
+const problems=[
+{name:'① 玉樹臨蜂', count:4, goal:'4'},
+{name:'② 兵不厭蚱', count:4, goal:'12'},
+{name:'③ 蝴思亂想', count:5, goal:'0.3'},
+{name:'④ 如意螂君', count:6, goal:'0.5'},
+{name:'⑤ 密密螞螞', count:5, goal:'0.7'},
+{name:'⑥ 螢頭小利', count:5, goal:'3.2'},
+{name:'⑦ 虫不當初', count:6, goal:'2'},
+{name:'⑧ 蜓蜓玉立', count:4, goal:'0.6'},
+{name:'⑨ 鍬鍬打打', count:5, goal:'0.46'}
+];
+const allowed={'0':2,'1':1,'2':1,'3':1,'4':1,'5':1,'6':1,'8':1,'9':1};
+const el=id=>document.getElementById(id), sel=el('challenge');
+problems.forEach((p,i)=>{let op=document.createElement('option');op.value=i;op.textContent=p.name;sel.append(op)});
+function refresh(){let p=problems[+sel.value];el('rule').textContent=`選 ${p.count} 個數字，商為 ${p.goal}`;el('target').textContent='小數 ÷ 小數';el('goal').textContent=p.goal;el('result').hidden=true}
+function clear(){el('dividend').value='';el('divisor').value='';el('result').hidden=true;el('dividend').focus()}
+sel.addEventListener('change',()=>{refresh();clear()});el('clear').addEventListener('click',clear);
+function decimal(s){let [a,b='']=s.split('.');return {n:BigInt(a+b),scale:b.length}}
+function equalQuotient(a,b,target){let A=decimal(a),B=decimal(b),T=decimal(target);return A.n * 10n**BigInt(B.scale+T.scale)===B.n*T.n*10n**BigInt(A.scale)}
+function check(){
+const p=problems[+sel.value],a=el('dividend').value.trim().replace(/．/g,'.'),b=el('divisor').value.trim().replace(/．/g,'.');
+const fmt=/^\d+\.\d+$/;let okFmt=fmt.test(a)&&fmt.test(b);let checks=[];
+checks.push({ok:okFmt,msg:okFmt?'被除數與除數都是小數（都有小數點及小數位）':'被除數和除數都必須是小數，例如 4.8、1.2'});
+const digits=(a+b).replace(/\./g,'');
+if(okFmt){let qty=digits.length;checks.push({ok:qty===p.count,msg:`使用 ${qty} 個數字；本題要求 ${p.count} 個`});
+let used={};for(let x of digits)used[x]=(used[x]||0)+1;
+let invalid=Object.keys(used).filter(x=>(used[x]> (allowed[x]||0)));
+checks.push({ok:invalid.length===0,msg:invalid.length===0?'數字種類及重複次數符合限制':`數字使用不符合限制：${invalid.map(x=>x in allowed?`${x} 使用 ${used[x]} 次（最多 ${allowed[x]} 次）`:`${x} 不在提供的數字中`).join('、')}`});
+let nonzero=decimal(b).n!==0n;checks.push({ok:nonzero,msg:nonzero?'除數不為 0':'除數不可為 0'});
+let same=nonzero&&equalQuotient(a,b,p.goal);checks.push({ok:same,msg:same?`計算正確：${a} ÷ ${b}＝${p.goal}`:`商不符合要求（本題商應為 ${p.goal}）`});
+}else{checks.push({ok:false,msg:'請先完成有效算式，再檢查數字個數與商'})}
+let correct=checks.every(c=>c.ok);let box=el('result');box.hidden=false;box.className=`status ${correct?'good':'bad'}`;
+let title=document.createElement('h2');title.textContent=correct?'✅ 全部符合！這是一組正確答案':'🔍 還有條件不符合，請再檢查';box.replaceChildren(title);
+let list=document.createElement('div');list.className='checks';checks.forEach(c=>{let item=document.createElement('div');item.className=`check ${c.ok?'pass':'fail'}`;let mark=document.createElement('span');mark.className='symbol';mark.textContent=c.ok?'✓':'✕';let description=document.createElement('span');description.textContent=c.msg;item.append(mark,description);list.append(item)});box.append(list);
+}
+el('check').addEventListener('click',check);['dividend','divisor'].forEach(id=>el(id).addEventListener('keydown',e=>{if(e.key==='Enter')check()}));refresh();
+</script></body></html>
